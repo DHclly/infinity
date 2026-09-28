@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>页面导航</title>
+    <script>
+      // 无尾斜杠时（如 /page-nav）serve 不自动重定向，相对资源会被解析到上级目录而 404，故强制补斜杠
+      (function () {
+        var path = window.location.pathname;
+        if (path.length > 0 && path.charAt(path.length - 1) !== "/") {
+          window.location.replace(path + "/" + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="menu" id="menu">
+      <aside class="left-panel" id="left-panel">
+        <button type="button" class="collapse-btn" data-collapse="up" title="折叠/展开">◀ 折叠</button>
+        <nav class="main-nav" id="main-nav"></nav>
+        <button type="button" class="collapse-btn" data-collapse="down" title="折叠/展开">◀ 折叠</button>
+      </aside>
+      <main class="right-panel" id="right-panel">
+        <header class="right-title" id="right-title"></header>
+        <div class="sub-nav" id="sub-nav"></div>
+      </main>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>

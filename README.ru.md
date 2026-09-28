@@ -15,8 +15,7 @@
   <a href="README.ru.md">Русский</a>
 </p>
 
-Infinity.js is a UITableView for the web: it speeds up scrolling through long
-lists and keeps your infinite feeds smooth and stable for your users.
+Infinity.js — это UITableView для веба: он ускоряет прокрутку длинных списков и сохраняет ваши бесконечные ленты плавными и стабильными.
 
-For more information:
-[https://dhclly.github.io/infinity/index.zh-CN](https://dhclly.github.io/infinity/index.zh-CN)
+Дополнительная информация:
+[http://airbnb.github.com/infinity](http://airbnb.github.com/infinity)
