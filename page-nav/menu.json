@@ -4,18 +4,6 @@
         "children":[
             [
                 {
-                    "name": "ECharts 学习项目",
-                    "url": "#",
-                    "tips": "ECharts 学习项目"
-                },
-                {
-                    "name": "ECharts 配置项手册",
-                    "url": "https://echarts.apache.org/zh/option.html",
-                    "tips": "ECharts 配置项手册官方文档"
-                }
-            ],
-            [
-                {
                     "name": "Infinity 首页",
                     "url": "/",
                     "tips": "Infinity 首页（相对地址）"
