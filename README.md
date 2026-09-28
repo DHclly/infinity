@@ -19,4 +19,4 @@ Infinity.js is a UITableView for the web: it speeds up scrolling through long
 lists and keeps your infinite feeds smooth and stable for your users.
 
 For more information:
-[http://dhclly.github.com/infinity](http://dhclly.github.com/infinity)
+[https://dhclly.github.io/infinity/index.zh-CN](https://dhclly.github.io/infinity/index.zh-CN)
