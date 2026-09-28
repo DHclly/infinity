@@ -12,21 +12,18 @@
                     "name": "ECharts 配置项手册",
                     "url": "https://echarts.apache.org/zh/option.html",
                     "tips": "ECharts 配置项手册官方文档"
+                }
+            ],
+            [
+                {
+                    "name": "Infinity 本地首页",
+                    "url": "http://localhost:3000/",
+                    "tips": "Infinity 本地预览首页"
                 },
                 {
-                    "name": "ECharts API 手册",
-                    "url": "https://echarts.apache.org/zh/api.html",
-                    "tips": "ECharts API 手册官方文档"
-                },
-                {
-                    "name": "Apache ECharts",
-                    "url": "https://echarts.apache.org/zh/index.html",
-                    "tips": "Apache ECharts 官网首页"
-                },
-                {
-                    "name": "ECharts 教程(菜鸟教程)",
-                    "url": "https://www.runoob.com/echarts/echarts-tutorial.html",
-                    "tips": "菜鸟教程 ECharts 入门教程"
+                    "name": "Infinity 中文首页",
+                    "url": "http://localhost:3000/index.zh-CN",
+                    "tips": "Infinity 本地中文首页"
                 }
             ]
         ]
