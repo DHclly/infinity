@@ -1,0 +1,386 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Infinity.js</title>
+    <link rel=stylesheet type=text/css href=assets/google-code-prettify/prettify.css>
+    <link href='assets/font.css' rel='stylesheet' type='text/css'>
+    <link rel=stylesheet type=text/css href=assets/o2.css>
+    <link rel=stylesheet type=text/css href=assets/custom.css>
+  </head>
+
+  <body>
+    <div class='container main-container'>
+      <div class=row>
+        <div class=span12>
+          <h1 class=logo>
+            <a class=logo-link href=/infinity>
+              <span class=logo-prefix>&infin;</span>
+              <span class=logo-suffix>.js</span>
+            </a>
+          </h1>
+        </div>
+      </div>
+      <div class='row main-copy'>
+        <div class=span12>
+          <p>
+            <a href=/infinity class=infinity-logo>&infin;</a> 是一个 Web 版的 UITableView：
+            它加速长列表的滚动，让你的无限信息流保持流畅稳定。它小巧、
+            久经实战考验、性能出色。代码托管在
+            <a href=https://github.com/airbnb/infinity>Github</a> 上，并以
+            BSD 许可证发布。附带了
+            <a href=docs/infinity.html>带注释的源码</a>，以及分别关闭
+            <a href=demo-off.html>Infinity</a> 和开启
+            <a href=demo-on.html>Infinity</a> 的演示。
+          </p>
+          <p>
+            <a href=/infinity class=infinity-logo>&infin;</a> 由
+            <a href=http://www.airbnb.com/jobs>Airbnb</a>
+            在开发热门心愿单和好友信息流的过程中打造，如今每天都在生产环境
+            投入使用。它唯一的依赖是 jQuery。
+          </p>
+
+        </div>
+      </div>
+
+      <hr>
+
+      <div class='row start-container'>
+        <div class='span8 main-copy quickstart'>
+          <p class=quickstart-text>上手非常简单：</p>
+<pre class='prettyprint linenums lang-js quickstart-code'>
+var $el = $('#my-infinite-container');
+var listView = new infinity.ListView($el);
+
+// ... 添加新内容时：
+
+var $newContent = $('&lt;p&gt;Hello World&lt;/p&gt;');
+listView.append($newContent);
+
+// ... 从列表中移除项时：
+
+var listItems = listView.find('.my-items');
+for(var index = 0, length = listItems.length; index < length; index++) {
+  listItems[index].remove();
+}
+</pre>
+          <p class=quickstart-text>如需完整的 API 文档，请继续往下阅读。</p>
+        </div>
+
+        <div class='span4 download-box'>
+            <div class='row-fluid download'>
+              <p class=download-copy>
+                开发版（未压缩，带注释）
+              </p>
+              <a href=infinity.js class='btn gray'>下载</a>
+            </div>
+            <br>
+            <div class='row-fluid download'>
+              <p class=download-copy>
+                生产版（压缩，2.3k）
+              </p>
+              <a href=build/infinity.min.js class=btn>下载</a>
+            </div>
+        </div>
+      </div>
+
+      <div class=navbar id=reference>
+        <div class=navbar-inner>
+          <div class=container>
+            <a href=#reference class=brand>
+              <span class=infinity-logo>&infin;</span> 参考指南
+            </a>
+            <ul class=nav>
+              <li><a href=#api-listview>ListView</a>
+              <li class=divider-vertical>
+              <li><a href=#api-listitem>ListItem</a>
+              <li class=divider-vertical>
+              <li><a href=#api-config>配置</a>
+              <li class=divider-vertical>
+              <li><a href=#future-work>未来工作</a>
+            </ul>
+
+            <ul class='nav pull-right'>
+              <li><a href=http://github.com/airbnb/infinity class='pink btn fork'>
+                    <i class='icon icon-github'></i> 复刻本项目
+                  </a>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class=row>
+        <div class=span12>
+          <div class='panel-padding'>
+
+            <div class='row-fluid api-doc' id=api-listview>
+              <div class=span8>
+                <h2><a class=api-header-link href=#api-listview>
+                    ListView API 参考
+                </a></h2>
+                <p class=api-copy>
+                  一个 <strong>ListView</strong> 是一个容器，
+                  在滚动事件触发时把内容移入和移出 DOM。
+                  ListView 通过确保屏幕上永远不会同时出现太多元素，
+                  来帮助降低高开销页面的重绘时间（并保持滚动流畅）。
+                  ListView 擅长加速包含复杂 HTML 元素的长列表，
+                  这类列表的新内容经常被追加到末尾，
+                  而现有内容很少被移除。
+                </p>
+                <p class=api-copy>
+                  ListView 很简单，但有几个注意事项：它们不能相互嵌套，
+                  也不能通过 CSS 设置高度。此外，除了通过追加或移除元素，
+                  ListView 很难改变尺寸，因此需要展开或改变尺寸的列表项
+                  会较难实现。向 ListView 追加元素相对较快，
+                  但移除元素较慢 &mdash; 所以在高帧率下每秒需要多次移除元素的
+                  设计会面临压力。
+                </p>
+                <p class=api-copy>
+                  <span class='label label-red'>注意</span> 由于 Firefox
+                  对没有 <code>src</code> 属性的
+                  <code>&lt;img&gt;</code> 标签
+                  的实现方式与其他浏览器不同，
+                  如果你在 ListView 内懒加载图片，
+                  应把它们的 <code>display</code> 设置为
+                  <code>block</code> 或 <code>inline-block</code>，
+                  否则 Firefox 会向 Infinity 报告错误的高度数据。
+                </p>
+              </div>
+              <div class='span3 offset1'>
+                <div class='panel-background-white panel-border summary'>
+                  <div class='panel-header panel-header-dark'>
+                    <h3>目录</h3>
+                  </div>
+                  <div class=panel-padding>
+                    <ul class=unstyled>
+                      <li class=pull-right><a href=#api-listview>摘要</a>
+                      <li class=pull-right><a href=#api-listview-properties>属性</a>
+                      <li class=pull-right><a href=#api-listview-methods>方法</a>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class='row-fluid api-doc' id=api-listview-properties>
+              <div class=span12>
+                <h3><a class=api-header-link href=api-listview-properties>
+                    属性
+                </a></h3>
+                <ul class=api-list>
+                  <li><code>$el</code>: 用作 ListView 父级的 jQuery 元素。
+                  <li><code>width</code>: ListView 的宽度。
+                  <li><code>height</code>: ListView 的高度。
+                </ul>
+              </div>
+            </div>
+
+            <div class='row-fluid api-doc' id=api-listview-methods>
+              <div class=span12>
+                <h3><a class=api-header-link href=api-listview-methods>
+                    方法
+                </a></h3>
+                <ul class=api-list>
+                  <li><code>new ListView($el [, options])</code>: 创建一个新的
+                  ListView，把内容追加到给定的 jQuery 元素内部。传入的元素必须
+                  已经在 DOM 中：否则，ListView 会缓存错误的
+                  尺寸和定位数据。<code>options</code> 是一个选项 hash，可以填写
+                  以下选项：
+                  <ul class=api-list>
+                    <li><code>lazy</code>: 一个用于懒加载屏幕上尚未加载的
+                    ListItem 的函数，会以 ListItem 的 jQuery 元素作为其
+                    上下文来调用。
+                  </ul>
+                  <li><code>append($el | listItem)</code>: 把一个 jQuery 元素
+                  或一个 ListItem 追加到 ListView。返回给定的 ListItem，
+                  或把给定的 jQuery 元素包装进一个新 ListItem 后返回。
+                  <li><code>find(selector | $el)</code>: 给定一个选择器或一个
+                  jQuery 元素，返回包含该元素或匹配该选择器的 ListItem。
+                  重要的是用 ListView 而不是 DOM 来查找你想要的项，
+                  因为为了节省滚动性能，这些项经常会从 DOM 中被移除。
+                  注意 <code>find()</code> 返回的是一个 ListItem 数组，
+                  它们是对 jQuery 元素的包装，会缓存定位数据，
+                  并能方便地与父 ListView 通信（这一步在
+                  <code>ListItem#remove()</code> 操作中已经在后台处理好了）。
+                  <li><code>remove()</code>: 把 ListView 从 DOM 中移除，
+                  并清理相关资源。
+                  <li><code>cleanup()</code>: 解绑所有事件，但不把
+                  ListView 从 DOM 中移除。
+                </ul>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class='row-fluid api-doc' id=api-listitem>
+              <div class=span9>
+                <h2><a class=api-header-link href=#api-listitem>
+                    ListItem API 参考
+                </a></h2>
+                <p class=api-copy>
+                  <strong>ListItem</strong> 是放置在 ListView 内部的各个 DOM
+                  节点的包装。通常你不需要自己创建 ListItem：
+                  ListView 会自动为你传入的任何 jQuery 元素完成包装。
+                  不过，你可能会发现单独与它们交互很有用 &mdash;
+                  例如，如果你需要移除某个元素，应该通过调用该 ListItem 的
+                  remove 来完成，这样它才能把移除操作告知父 ListView
+                  &mdash; 因此 ListView 让查看自己的 ListItem 集合变得很容易。
+                </p>
+              </div>
+              <div class=span3>
+                <div class='panel-background-white panel-border summary'>
+                  <div class='panel-header panel-header-dark'>
+                    <h3>目录</h3>
+                  </div>
+                  <div class=panel-padding>
+                    <ul class=unstyled>
+                      <li class=pull-right><a href=#api-listitem>摘要</a>
+                      <li class=pull-right><a href=#api-listitem-properties>属性</a>
+                      <li class=pull-right><a href=#api-listitem-methods>方法</a>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class='row-fluid api-doc' id=api-listitem-properties>
+              <div class=span12>
+                <h3><a class=api-header-link href=api-listitem-properties>
+                    属性
+                </a></h3>
+                <ul class=api-list>
+                  <li><code>$el</code>: 该 ListItem 包装的 jQuery 元素。
+                  <li><code>top</code>: ListItem 在屏幕上的顶部位置，
+                  相对于其父 ListView。
+                  <li><code>bottom</code>: ListItem 在屏幕上的底部位置，
+                  相对于其父 ListView。
+                  <li><code>width</code>: ListItem 的宽度。
+                  <li><code>height</code>: ListItem 的高度。
+                </ul>
+              </div>
+            </div>
+
+            <div class='row-fluid api-doc' id=api-listitem-methods>
+              <div class=span12>
+                <h3><a class=api-header-link href=api-listitem-methods>
+                    方法
+                </a></h3>
+                <ul class=api-list>
+                  <li><code>remove()</code>: 把该 ListItem 从 ListView 中
+                  永久移除，并把它对应的元素从 DOM 中移除，
+                  最后清理一切相关资源。
+                  <li><code>cleanup()</code>: 解绑所有事件并释放它持有的
+                  所有引用，但不把该 ListItem 从 ListView 中移除。
+                </ul>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class='row-fluid api-doc' id=api-config>
+              <div class=span12>
+                <h2><a class=api-header-link href=#api-config>
+                    配置 Infinity.js
+                </a></h2>
+                <p class=api-copy>
+                  我们尽量为 Infinity 选择了合理的默认值，
+                  但有时会遇到我们没有考虑到的一些特殊场景。
+                  Infinity.js 可以通过两个选项来配置，
+                  以便在多种情况下都保证滚动流畅。配置选项如下：
+                </p>
+                <ul class=api-list>
+                  <li><code>infinity.config.PAGE_TO_SCREEN_RATIO</code>:
+                  在内部，Infinity.js 把它的 ListItem 放进一个个
+                  <strong>Page（页）</strong>块中，
+                  这个变量控制一页相对于视口大小应该有多大。
+                  默认值为 <code>3</code>。页越大，意味着 Infinity
+                  需要换页的频率越低；页越小，意味着渲染速度越快。
+                  如果你的页非常复杂，可以调小这个值，
+                  让屏幕上需要处理的内容更少以避免拖慢页面；
+                  另一方面，如果你的页非常简单，可以调大这个值，
+                  进一步降低换页突兀或滚动闪烁的可能性。
+                  <li><code>infinity.config.SCROLL_THROTTLE</code>: Infinity.js
+                  会对它的滚动事件进行节流：每 350 毫秒才响应一次滚动事件。
+                  如果你希望它响应得更频繁或更不频繁，就把这个值设置成
+                  你想要的节流毫秒数。如果你调大了
+                  <code>PAGE_TO_SCREEN_RATIO</code>，可以调大
+                  <code>SCROLL_THROTTLE</code> 以减少计算频率；
+                  如果你调小了 <code>PAGE_TO_SCREEN_RATIO</code>，
+                  大概也需要调小 <code>SCROLL_THROTTLE</code>，
+                  以确保较小的页能更及时地被换到屏幕上，
+                  因为此时你屏幕周围的缓冲更小。
+                </ul>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class='row-fluid api-doc' id=future-work>
+              <div class=span12>
+                <h2><a class=api-header-link href=#future-work>
+                    未来工作
+                </a></h2>
+
+                <ul class=api-list>
+                  <li>把 Infinity 内部的数据结构从有序数组换成
+                  自平衡二叉树。这会让 ListItem 上的
+                  <code>remove()</code> 操作快得多，
+                  并能简单、快速地支持前插（甚至任意位置插入）。
+                  <li>做一个 API，在元素尺寸变化时通知
+                  ListView/ListItem，让 ListView 能重新组织自身。
+                  这可能是切换到自平衡二叉树之后的下一步。
+                  <li>让缓冲区感知滚动方向，这样你可以根据滚动方向
+                  只保留后置缓冲或只保留前置缓冲。这样就能在不影响
+                  绘制时间的前提下，把 <code>PAGE_TO_SCREEN_RATIO</code>
+                  稍微调大一些。
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <script type=text/javascript src=assets/js/jquery.js></script>
+    <script src="assets/google-code-prettify/prettify.js"></script>
+    <script type=text/javascript src=assets/js/vendor/ender.min.js></script>
+    <script>ender.noConflict();</script>
+    <script type=text/javascript src=assets/js/vendor/stdair.min.js></script>
+    <script type=text/javascript src=assets/js/vendor/o2.min.js></script>
+
+    <script>
+      prettyPrint();
+
+      !function(window, $) {
+        var $nav = $('.navbar'),
+            $win = $(window),
+            navTop = $nav.offset().top,
+            onTop = false,
+            checkScheduled = false;
+
+        function checkNav() {
+          var top = $win.scrollTop();
+          if(navTop < top && !onTop) {
+            onTop = true;
+            $nav.addClass('navbar-fixed-top');
+            } else if(navTop >= top && onTop) {
+            $nav.removeClass('navbar-fixed-top');
+            onTop = false;
+          }
+        }
+
+        $win.on('scroll', function() {
+          if(!checkScheduled) {
+            checkScheduled = true;
+            setTimeout(function() {
+              checkNav();
+              checkScheduled = false;
+            }, 100);
+          }
+        });
+      }(window, jQuery);
+    </script>
+  </body>
+</html>
