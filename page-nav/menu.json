@@ -16,14 +16,14 @@
             ],
             [
                 {
-                    "name": "Infinity 本地首页",
-                    "url": "http://localhost:3000/",
-                    "tips": "Infinity 本地预览首页"
+                    "name": "Infinity 首页",
+                    "url": "/",
+                    "tips": "Infinity 首页（相对地址）"
                 },
                 {
                     "name": "Infinity 中文首页",
-                    "url": "http://localhost:3000/index.zh-CN",
-                    "tips": "Infinity 本地中文首页"
+                    "url": "/index.zh-CN",
+                    "tips": "Infinity 中文首页（相对地址）"
                 }
             ]
         ]
