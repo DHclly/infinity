@@ -6,12 +6,24 @@
                 {
                     "name": "Infinity 首页",
                     "url": "/",
-                    "tips": "Infinity 首页（相对地址）"
+                    "tips": "Infinity 首页"
                 },
                 {
                     "name": "Infinity 中文首页",
                     "url": "/index.zh-CN",
-                    "tips": "Infinity 中文首页（相对地址）"
+                    "tips": "Infinity 中文首页"
+                }
+            ],
+            [
+                {
+                    "name": "Infinity Demo: On",
+                    "url": "/demo-on.html",
+                    "tips": "开启 Infinity 效果的示例页"
+                },
+                {
+                    "name": "Infinity Demo: Off",
+                    "url": "/demo-off.html",
+                    "tips": "关闭 Infinity 效果的示例页"
                 }
             ]
         ]
