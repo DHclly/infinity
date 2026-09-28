@@ -1,0 +1,277 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+.menu {
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+  background: #f5f6f8;
+  color: #333;
+}
+
+.menu {
+  display: flex;
+  overflow: hidden;
+}
+
+/* ===== 左侧主导航面板 ===== */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  min-width: 240px;
+  background: #2b3245;
+  color: #c7cede;
+  transition: width 0.3s ease, min-width 0.3s ease;
+  overflow: hidden;
+}
+
+.menu.collapsed .left-panel {
+  width: 120px;
+  min-width: 120px;
+}
+
+.main-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #454e68 #2b3245; /* 滑块 / 轨道(与面板同色) */
+}
+
+/* 左侧滚动条背景与面板一致 */
+.main-nav::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-nav::-webkit-scrollbar-track {
+  background: #2b3245; /* 与左侧面板同色 */
+}
+
+.main-nav::-webkit-scrollbar-thumb {
+  background: #454e68;
+  border-radius: 4px;
+}
+
+.main-nav::-webkit-scrollbar-thumb:hover {
+  background: #58628a;
+}
+
+/* 主导航项 */
+.main-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #c7cede;
+  font-size: 14px;
+  text-align: left;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: normal; /* 展开时允许换行，完整显示文字 */
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.main-item:hover {
+  background: #3a4160;
+  color: #fff;
+}
+
+.main-item.active {
+  background: #4a6cf7;
+  color: #fff;
+}
+
+/* 折叠按钮（左侧面板首尾各一个） */
+.collapse-btn {
+  flex: none;
+  padding: 10px 12px;
+  border: none;
+  background: #232936;
+  color: #9aa3b8;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.collapse-btn:hover {
+  background: #313a4d;
+  color: #fff;
+}
+
+/* 折叠后：主导航项保持现状（单行省略） */
+.menu.collapsed .main-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 折叠按钮文本始终显示，自两端保持一致，文字居中 */
+.menu.collapsed .collapse-btn {
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ===== 右侧内容面板 ===== */
+.right-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+  background: #f5f6f8;
+  scrollbar-color: #c9ced9 #f5f6f8; /* 滑块 / 轨道(与面板同色) */
+}
+
+/* 右侧滚动条背景与面板一致 */
+.right-panel::-webkit-scrollbar {
+  width: 10px;
+}
+
+.right-panel::-webkit-scrollbar-track {
+  background: #f5f6f8; /* 与右侧面板同色 */
+}
+
+.right-panel::-webkit-scrollbar-thumb {
+  background: #c9ced9;
+  border-radius: 5px;
+}
+
+.right-panel::-webkit-scrollbar-thumb:hover {
+  background: #aab1bf;
+}
+
+.right-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #4a6cf7;
+}
+
+/* 子级导航分组，每组放在一个卡片里 */
+.sub-group {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px solid #e3e7ef;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.sub-group-title {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 14px;
+  letter-spacing: 1px;
+}
+
+.sub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 子级链接项 */
+.sub-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border: 1px solid #d9dee8;
+  border-radius: 6px;
+  background: #fafbfd;
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sub-link:hover {
+  border-color: #4a6cf7;
+  color: #4a6cf7;
+  box-shadow: 0 2px 6px rgba(74, 108, 247, 0.15);
+}
+
+/* 组内序号圆标 */
+.sub-link .item-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #eef1ff;
+  color: #4a6cf7;
+  font-size: 11px;
+  flex: none;
+}
+
+/* 自定义提示框，风格与按钮(.sub-link)类似 */
+.nav-tooltip {
+  min-width: 100px;
+  max-width: 800px;
+  padding: 7px; /* 给箭头外层留边，箭头伸出不被裁剪 */
+  border: 1px solid #4a6cf7;
+  border-radius: 6px;
+  background: #fff;
+  color: #3a3a3a; /* 深灰色文字 */
+  font-size: 12px;
+  box-shadow: 0 4px 14px rgba(74, 108, 247, 0.18);
+  pointer-events: auto; /* 允许鼠标移入提示框内部滚动 */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 内部可滚动内容区：高度最高 400px，超出出现滚动条 */
+.nav-tooltip-body {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1px 7px;
+  line-height: 1.5;
+}
+
+/* 提示框顶部小箭头，指向触发元素 */
+.nav-tooltip::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 16px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-left: 1px solid #4a6cf7;
+  border-top: 1px solid #4a6cf7;
+  transform: rotate(45deg);
+}
+
+/* 提示框显示在元素上方时，箭头翻转到底部 */
+.nav-tooltip.flipped::before {
+  top: auto;
+  bottom: -6px;
+  border-left: none;
+  border-top: none;
+  border-right: 1px solid #4a6cf7;
+  border-bottom: 1px solid #4a6cf7;
+}
+
+.empty-tip {
+  color: #aaa;
+  font-size: 14px;
+}
